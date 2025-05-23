@@ -1,6 +1,6 @@
 {
   "name": "@adaptavist/forge-resolver",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "MIT",
   "tasks": {
     "ok": "deno fmt && deno lint && deno check && deno test && deno publish --dry-run --allow-dirty"
@@ -10,6 +10,7 @@
     "@std/assert": "jsr:@std/assert@^1.0.13"
   },
   "exports": {
+    ".": "./lib/mod.ts",
     "./schema-error": "./lib/schema-error.ts",
     "./invoke": "./lib/invoke.ts",
     "./mock-bridge": "./lib/mock-bridge.ts",
@@ -20,6 +21,7 @@
   },
   "publish": {
     "exclude": [
+      ".github",
       "lib/_fixtures",
       "lib/*.test.ts"
     ]
