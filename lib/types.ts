@@ -4,17 +4,18 @@ export type AnyPayload = Record<string, any>;
 export type AnyContext = Record<string, any>;
 export type AnyResult = Record<string, any> | string | void;
 
-export interface InvokePayload {
-  call: {
-    functionKey: string;
-    payload?: AnyPayload;
-    jobId?: string;
-  };
-  context: AnyContext;
-}
-
-export type Handler = (
-  payload: InvokePayload,
+/**
+ * The resolver handler that is registered via the forge manifest
+ */
+export type ResolverHandler = (
+  payload: {
+    call: {
+      functionKey: string;
+      payload?: AnyPayload;
+      jobId?: string;
+    };
+    context: AnyContext;
+  },
   backendRuntimePayload?: AnyPayload,
 ) => Promise<AnyResult>;
 
@@ -26,6 +27,9 @@ export interface ResolverRequest<P extends AnyPayload> {
   context: AnyContext;
 }
 
+/**
+ * A resolver function
+ */
 export type ResolverFunction = (
   payload: ResolverRequest<AnyPayload>,
 ) => Promise<AnyResult> | AnyResult;
@@ -33,7 +37,7 @@ export type ResolverFunction = (
 /**
  * A module of ResolverFunctions
  */
-export type FunctionsModule = Record<string, ResolverFunction>;
+export type ResolverFunctionsModule = Record<string, ResolverFunction>;
 
 /**
  * Extract the payload from a ResolverFunction

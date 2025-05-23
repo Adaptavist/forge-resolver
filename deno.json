@@ -1,5 +1,27 @@
 {
+  "name": "@adaptavist/forge-resolver",
+  "version": "0.0.1",
+  "license": "MIT",
   "tasks": {
-    "ok": "deno fmt && deno lint && deno check"
+    "ok": "deno fmt && deno lint && deno check && deno test && deno publish --dry-run --allow-dirty"
+  },
+  "imports": {
+    "@standard-schema/spec": "jsr:@standard-schema/spec@^1.0.0",
+    "@std/assert": "jsr:@std/assert@^1.0.13"
+  },
+  "exports": {
+    "./schema-error": "./lib/schema-error.ts",
+    "./invoke": "./lib/invoke.ts",
+    "./mock-bridge": "./lib/mock-bridge.ts",
+    "./proxy": "./lib/proxy.ts",
+    "./resolver": "./lib/resolver.ts",
+    "./schemas": "./lib/schemas.ts",
+    "./types": "./lib/types.ts"
+  },
+  "publish": {
+    "exclude": [
+      "lib/_fixtures",
+      "lib/*.test.ts"
+    ]
   }
 }

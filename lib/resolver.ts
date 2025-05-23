@@ -1,15 +1,15 @@
-import { getSchemas, validate } from "./schemas.ts";
-import type { FunctionsModule, Handler } from "./types.ts";
+import { getSchemas } from "./schemas.ts";
+import { validate } from "./validate.ts";
+import type { ResolverFunctionsModule, ResolverHandler } from "./types.ts";
 
 /**
  * Create a forge resolver handler from a module of resolver functions
- * does what '@forge/resolver' does but with a simpler API, without
- * unnecessary classes.
+ * does what '@forge/resolver' does but with a simpler API.
  *
- * BUT, in addition it will also validate payloads and results if the
+ * In addition it will also validate payloads and results if the
  * invoked function has standard schemas attached.
  */
-export function createHandler(fns: FunctionsModule): Handler {
+export function createResolver(fns: ResolverFunctionsModule): ResolverHandler {
   return async (
     { call: { functionKey, payload = {}, jobId }, context },
     backendRuntimePayload,
