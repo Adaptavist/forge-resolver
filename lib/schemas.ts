@@ -13,8 +13,8 @@ const schemasSymbol = Symbol.for("@adaptavist/forge-resolver/schemas");
  */
 export function setSchemas<I extends AnyPayload, O extends AnyResult>(
   fn: (req: ResolverRequest<I>) => Promise<O> | O,
-  payloadSchema: StandardSchemaV1<I>,
-  resultSchema: StandardSchemaV1<O>,
+  payloadSchema?: StandardSchemaV1<I>,
+  resultSchema?: StandardSchemaV1<O>,
 ) {
   (fn as unknown as WithSchemas<I, O>)[schemasSymbol] = {
     payloadSchema,
@@ -35,8 +35,8 @@ export interface Schemas<
   I extends AnyPayload = AnyPayload,
   O extends AnyResult = AnyResult,
 > {
-  payloadSchema: StandardSchemaV1<I>;
-  resultSchema: StandardSchemaV1<O>;
+  payloadSchema?: StandardSchemaV1<I>;
+  resultSchema?: StandardSchemaV1<O>;
 }
 
 type WithSchemas<

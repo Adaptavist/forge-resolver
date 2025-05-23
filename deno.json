@@ -1,6 +1,6 @@
 {
   "name": "@adaptavist/forge-resolver",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "license": "MIT",
   "tasks": {
     "ok": "deno fmt && deno lint && deno check && deno test && deno publish --dry-run --allow-dirty"

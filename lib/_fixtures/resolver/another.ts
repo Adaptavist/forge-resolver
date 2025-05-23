@@ -20,4 +20,5 @@ export function another({ payload: { id } }: ResolverRequest<InType>): OutType {
   return { id: id!, value: "ok" };
 }
 
-setSchemas(another, InSchema, OutSchema);
+// We are deliberately not supplying the result schema in this case
+setSchemas(another, InSchema);
