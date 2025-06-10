@@ -28,11 +28,23 @@ export interface ResolverRequest<P extends AnyPayload> {
 }
 
 /**
- * A resolver function
+ * A valid resolver function
  */
-export type ResolverFunction = (
-  payload: ResolverRequest<AnyPayload>,
+export type ResolverFunction =
+  | ResolverFunctionWithPayload
+  | ResolverFunctionNoPayload;
+
+/**
+ * A resolver function that accepts a `ResolverRequest` containing a payload
+ */
+export type ResolverFunctionWithPayload<P extends AnyPayload = AnyPayload> = (
+  payload: ResolverRequest<P>,
 ) => Promise<AnyResult> | AnyResult;
+
+/**
+ * A resolver function that has no parameters (and hence no payload)
+ */
+export type ResolverFunctionNoPayload = () => Promise<AnyResult> | AnyResult;
 
 /**
  * A module of ResolverFunctions
@@ -42,5 +54,31 @@ export type ResolverFunctionsModule = Record<string, ResolverFunction>;
 /**
  * Extract the payload from a ResolverFunction
  */
-export type Payload<R extends ResolverFunction> = Parameters<R>[0] extends
-  ResolverRequest<infer P> ? P : never;
+export type Payload<R extends ResolverFunction> = R extends
+  ResolverFunctionNoPayload ? undefined
+  : R extends ResolverFunctionWithPayload<infer P> ? P
+  : never;
+
+/**
+ * A function that proxies to a resolver function.
+ *
+ * This is the function type returned by `bindInvoke` and
+ * of all functions within a `resolverProxy` object.
+ */
+export type ResolverFunctionProxy<
+  M extends ResolverFunctionsModule,
+  K extends keyof M,
+> = M[K] extends ResolverFunctionNoPayload
+  ? () => Promise<Awaited<ReturnType<M[K]>>>
+  : M[K] extends ResolverFunctionWithPayload<infer P>
+    ? (payload: P) => Promise<Awaited<ReturnType<M[K]>>>
+  : never;
+
+/**
+ * The type returned from `resolverProxy`.
+ */
+export type ResolverProxy<
+  M extends ResolverFunctionsModule,
+> = {
+  [K in keyof M]: ResolverFunctionProxy<M, K>;
+};

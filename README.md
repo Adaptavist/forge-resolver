@@ -10,3 +10,4 @@
   lib (eg. Zod)
 - No dependencies on `@forge/*` or other packages (other than the optional
   schema lib of your choice)
+- Compatibility helpers to aid a gradual migration from `@forge/resolver`

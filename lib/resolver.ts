@@ -8,6 +8,13 @@ import type { ResolverFunctionsModule, ResolverHandler } from "./types.ts";
  *
  * In addition it will also validate payloads and results if the
  * invoked function has standard schemas attached.
+ *
+ * @example
+ * ```ts
+ *   import * as fns from "./my-resolver-functions";
+ *
+ *   export const handler = createResolver(fns);
+ * ```
  */
 export function createResolver(fns: ResolverFunctionsModule): ResolverHandler {
   return async (

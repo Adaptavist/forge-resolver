@@ -6,6 +6,7 @@
     "jsr:@std/assert@*": "1.0.12",
     "jsr:@std/assert@^1.0.13": "1.0.13",
     "jsr:@std/internal@^1.0.6": "1.0.6",
+    "jsr:@std/testing@^1.0.13": "1.0.13",
     "npm:zod@^3.25.0": "3.25.8"
   },
   "jsr": {
@@ -26,6 +27,9 @@
     },
     "@std/internal@1.0.6": {
       "integrity": "9533b128f230f73bd209408bb07a4b12f8d4255ab2a4d22a1fd6d87304aca9a4"
+    },
+    "@std/testing@1.0.13": {
+      "integrity": "74418be16f627dfe996937ab0ffbdbda9c1f35534b78724658d981492f121e71"
     }
   },
   "npm": {
@@ -36,7 +40,8 @@
   "workspace": {
     "dependencies": [
       "jsr:@standard-schema/spec@1",
-      "jsr:@std/assert@^1.0.13"
+      "jsr:@std/assert@^1.0.13",
+      "jsr:@std/testing@^1.0.13"
     ]
   }
 }
