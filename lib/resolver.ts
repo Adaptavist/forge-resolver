@@ -23,6 +23,19 @@ export function createResolver(fns: ResolverFunctionsModule): ResolverHandler {
   ) => {
     const fn = fns[functionKey];
 
+    if (!fn) {
+      throw new TypeError(
+        `Resolver function not found: "${functionKey}"\n` +
+          `Available functions: ${Object.keys(fns).join(", ")}`,
+      );
+    }
+
+    if (typeof fn !== "function") {
+      throw new TypeError(
+        `Resolver member is not a function: "${functionKey}"`,
+      );
+    }
+
     const schemas = getSchemas(fn);
 
     if (schemas) {

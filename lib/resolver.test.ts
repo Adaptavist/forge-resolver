@@ -171,6 +171,28 @@ Deno.test("invalid payload validation", async () => {
   const error = bridgeErrors.pop();
 
   assertIsError(error, SchemaError);
+});
 
-  // console.log(error);
+Deno.test("non-existent resolver function", async () => {
+  await invoke("nonExistentFunction", {});
+
+  const error = bridgeErrors.pop();
+
+  assertIsError(
+    error,
+    TypeError,
+    /^Resolver function not found: "nonExistentFunction"/,
+  );
+});
+
+Deno.test("invalid resolver function", async () => {
+  await invoke("notReallyAFunction", {});
+
+  const error = bridgeErrors.pop();
+
+  assertIsError(
+    error,
+    TypeError,
+    /^Resolver member is not a function: "notReallyAFunction"/,
+  );
 });
