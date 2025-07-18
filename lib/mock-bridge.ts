@@ -22,6 +22,7 @@ export function mockBridge(
         context,
       });
     } catch (e: unknown) {
+      console.error("Mock Bridge Error:", e);
       bridgeErrors.push(e);
       // TODO: what should we return on error?
     }

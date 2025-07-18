@@ -28,7 +28,7 @@ export function setSchemas<I extends AnyPayload, O extends AnyResult>(
 export function getSchemas<F extends ResolverFunction>(
   fn: F,
 ): Schemas | undefined {
-  return (fn as unknown as WithSchemas)[schemasSymbol];
+  return (fn as unknown as WithSchemas)?.[schemasSymbol];
 }
 
 export interface Schemas<
